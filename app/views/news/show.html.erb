@@ -1,0 +1,6 @@
+<h1><%= @news.title %></h1>
+<p><%= @news.desc %></p>
+<% @news.content.split('||').each do |para| %>
+  <p><%= para %></p>
+<% end %>
+
