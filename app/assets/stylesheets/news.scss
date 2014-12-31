@@ -1,3 +1,60 @@
 // Place all the styles related to the news controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+#body-content {
+  width: 80%;
+  margin: 0 auto;
+}
+
+a {
+  display: block;
+  width: 500px;
+  border: 1px;
+  margin: 10px;
+  font-size: 20px;
+  text-decoration: none;
+}
+
+.h-center {
+  margin-top: 100px;
+  margin-bottom: 70px;
+  font-weight: bold;
+  font-family: Fantasy;
+  text-align: center;
+  color: #CCCCFF;
+}
+
+.font-large {
+  font-size: 50px;
+}
+
+.font-middle {
+  font-size: 30px;
+}
+
+.font-content {
+  font-size: 20px;
+}
+
+.news-item {
+  padding: 20px;
+  margin: 10px;
+  border: 2px solid #f36;
+  border-radius: 20px;
+  background: #DDDDDD;
+  p {
+    margin-left: 30px;
+  }
+}
+
+.news-content {
+  padding: 20px;
+  margin: 10px;
+  border: 2px solid #f36;
+  border-radius: 20px;
+  background: #DDDDDD;
+  p {
+    margin-left: 30px;
+  }
+}

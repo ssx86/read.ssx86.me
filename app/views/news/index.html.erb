@@ -1,5 +1,15 @@
-<ul>
-<% @all_news.each do |news| %>
-  <li><%= link_to news.title, show_news_path(news)  %></a></li>
-<% end %>
-</ul>
+<div id="body-content">
+  <div class="h-center font-large">
+    <h1>Today's news</h1>
+  </div>
+  <ul>
+    <% @all_news.each do |news| %>
+      <li>
+        <div class='news-item'>
+          <%= link_to news.title, show_news_path(news)  %>
+          <p><%= news.desc %></p>
+        </div>
+      </li>
+    <% end %>
+  </ul>
+</div>

@@ -1,6 +1,9 @@
-<h1><%= @news.title %></h1>
-<p><%= @news.desc %></p>
-<% @news.content.split('||').each do |para| %>
-  <p><%= para %></p>
-<% end %>
-
+<div id="body-content">
+  <h1 class="h-center font-large"><%= @news.title %></h1>
+  <div class="news-content">
+  <p><%= @news.desc %></p>
+  <% @news.content.split('||').each do |para| %>
+    <p><%= para %></p>
+  <% end %>
+  </div>
+</div>
