@@ -17,6 +17,7 @@ ActiveRecord::Schema.define(version: 20141230143526) do
     t.string   "title"
     t.string   "url"
     t.string   "content"
+    t.date     "date"
     t.string   "channel"
     t.string   "desc"
     t.datetime "created_at", null: false

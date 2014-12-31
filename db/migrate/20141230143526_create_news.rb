@@ -4,6 +4,7 @@ class CreateNews < ActiveRecord::Migration
       t.string :title
       t.string :url
       t.string :content
+      t.date   :date
       t.string :channel
       t.string :desc
       t.timestamps null: false

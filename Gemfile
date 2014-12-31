@@ -35,6 +35,9 @@ gem 'nokogiri'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
+# Use Whenever as the cron task helper
+gem 'whenever', '~> 0.8'
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
