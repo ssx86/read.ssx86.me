@@ -1,9 +1,6 @@
 class NewsController < ApplicationController
   def index
-    @all_news = News.all
-    if @all_news.size == 0 then
-      getTodayNews()
-    end
+    @all_news = News.paginate(:page => params[:page], :per_page => 25)
   end
 
   def show
@@ -27,20 +24,4 @@ class NewsController < ApplicationController
     news.save
   end
 
-  def getTodayNews
-    p 'getting today news'
-    url = 'http://rss.cnn.com/rss/edition.rss'
-    doc = Nokogiri::HTML(open(url)) 
-
-    doc.xpath('//item').each do |item| 
-      p item.children
-      news = News.new
-      news.title = item.at_xpath('title').content
-      news.url = item.at_xpath('guid').content
-      news.desc = item.at_xpath('description').content
-      news.channel = 'edition'
-      p news
-      news.save
-    end 
-  end
 end

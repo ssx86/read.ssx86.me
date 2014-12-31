@@ -12,4 +12,9 @@
       </li>
     <% end %>
   </ul>
+
+  <div class="center digg_pagination">
+    <%= will_paginate @all_news, :container => false %>
+  </div>
 </div>
+
