@@ -6,7 +6,7 @@
     <% @all_news.each do |news| %>
       <li>
         <div class='news-item'>
-          <%= link_to news.title, show_news_path(news)  %>
+          <%= link_to "[#{news.channel}]#{news.title}", show_news_path(news)  %>
           <p><%= news.desc %></p>
         </div>
       </li>

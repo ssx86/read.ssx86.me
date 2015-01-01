@@ -20,7 +20,7 @@ class NewsController < ApplicationController
     doc.xpath('//div[@class="cnn_strycntntlft"]/p').each do |item|
       content = content + '||' + item.content 
     end
-    news.content = content
+    news.content = content.gsub(/<img.*\/>/, "")
     news.save
   end
 

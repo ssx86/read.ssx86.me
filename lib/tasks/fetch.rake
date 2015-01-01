@@ -2,12 +2,39 @@ namespace :fetch do
 
   task :cnn => :environment do 
     puts "[#{Time.now}] start..."
-    getTodayNews
+
+    rss_urls = {
+      'Top Stories'     => 'http://rss.cnn.com/rss/edition.rss',
+      'World'           => 'http://rss.cnn.com/rss/edition_world.rss',
+      'Africa'          => 'http://rss.cnn.com/rss/edition_africa.rss',
+      'Americas'        => 'http://rss.cnn.com/rss/edition_americas.rss',
+      'Asia'            => 'http://rss.cnn.com/rss/edition_asia.rss',
+      'Europe'          => 'http://rss.cnn.com/rss/edition_europe.rss',
+      'MiddleEast'      => 'http://rss.cnn.com/rss/edition_meast.rss',
+      'U.S'             => 'http://rss.cnn.com/rss/edition_us.rss',
+#      'Money'           => 'http://rss.cnn.com/rss/money_news_international.rss',
+      'Technology'      => 'http://rss.cnn.com/rss/edition_technology.rss',
+      'Science&Space'   => 'http://rss.cnn.com/rss/edition_space.rss',
+      'Entertainment'   => 'http://rss.cnn.com/rss/edition_entertainment.rss',
+      'WorldSport'      => 'http://rss.cnn.com/rss/edition_sport.rss',
+      'Football'        => 'http://rss.cnn.com/rss/edition_football.rss',
+      'Golf'            => 'http://rss.cnn.com/rss/edition_golf.rss',
+      'Motorsport'      => 'http://rss.cnn.com/rss/edition_motorsport.rss',
+#      'Tennis'          => 'http://rss.cnn.com/rss/edition_tennis.rss',
+#      'Travel'          => 'http://travel.cnn.com/rss.xml',
+#      'Video'           => 'http://rss.cnn.com/rss/cnn_freevideo.rss',
+#      'MostRecent'      => 'http://rss.cnn.com/rss/cnn_latest.rss',
+#      'ConnectTheWorld' => 'http://rss.cnn.com/rss/edition_connecttheworld.rss',
+#      'WorldSport'      => 'http://rss.cnn.com/rss/edition_worldsportblog.rss'
+    }
+    rss_urls.each do |k, v|
+      getTodayNews k, v
+    end
     puts "[#{Time.now}] end..."
     puts "[#{Time.now}] count of news: #{News.count}"
   end
 
-  def getTodayNews
+  def getTodayNews( channel, url )
 
     def getdate(url)
       ret = /\d{4}\/\d{2}\/\d{2}/.match(url)
@@ -18,18 +45,24 @@ namespace :fetch do
       end
     end
 
-    url = 'http://rss.cnn.com/rss/edition.rss'
     doc = Nokogiri::HTML(open(url)) 
+
+    f = File.new("/home/zhangss/read.ssx86.me/log/#{channel}", "w")
+    f.puts doc.to_xml
+    f.close
 
     doc.xpath('//item').each do |item| 
       news = News.new
       news.title = item.at_xpath('title').content
       news.url = item.at_xpath('guid').content
       news.date = getdate(news.url)
-      news.desc = item.at_xpath('description').content
-      news.channel = 'edition'
+      news.desc = item.at_xpath('description').content.gsub(/<img.*\/>/, "")
+      news.channel = channel
       news.save
     end 
   end
 
 end
+
+
+
