@@ -22,7 +22,7 @@
 
 set :output, "/home/zhangss/read.ssx86.me/log/cron_log.log"
 
-every 1.hour do
+every 10.minute do
   set :environment, "development"
   rake "fetch:cnn"
 end

@@ -1,10 +1,10 @@
 namespace :fetch do
 
   task :cnn => :environment do 
-    puts "start..."
+    puts "[#{Time.now}] start..."
     getTodayNews
-    puts "end..."
-    puts "count of news: #{News.count}"
+    puts "[#{Time.now}] end..."
+    puts "[#{Time.now}] count of news: #{News.count}"
   end
 
   def getTodayNews
