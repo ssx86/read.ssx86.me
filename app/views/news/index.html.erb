@@ -7,6 +7,7 @@
       <li>
         <div class='news-item'>
           <%= link_to "[#{news.channel}]#{news.title}", show_news_path(news)  %>
+          <p>Date: <%= news.date %></p>
           <p><%= news.desc %></p>
         </div>
       </li>

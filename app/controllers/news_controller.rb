@@ -1,6 +1,6 @@
 class NewsController < ApplicationController
   def index
-    @all_news = News.paginate(:page => params[:page], :per_page => 25)
+    @all_news = News.paginate(:page => params[:page], :per_page => 25).order("date desc")
   end
 
   def show

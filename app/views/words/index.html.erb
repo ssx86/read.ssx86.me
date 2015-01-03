@@ -1,0 +1,6 @@
+<% @words.each do |word| %>
+  <p><%= word.word %></p>
+<% end %>
+<div class="center digg_pagination">
+  <%= will_paginate @words, :container => false %>
+</div>

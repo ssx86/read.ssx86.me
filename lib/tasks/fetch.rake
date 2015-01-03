@@ -58,8 +58,41 @@ namespace :fetch do
       news.date = getdate(news.url)
       news.desc = item.at_xpath('description').content.gsub(/<img.*\/>/, "")
       news.channel = channel
-      news.save
+
+
+      #保存成功说明是新文章，否则是之前抓过的
+      if news.save then
+        getContent(news)
+      else
+      end
     end 
+  end
+
+
+  def getContent(news)
+    url = news.url
+    doc = Nokogiri::HTML(open(url)) 
+
+    content = ""
+    doc.xpath('//div[@class="cnn_strycntntlft"]/p').each do |item|
+      content = content + '||' + item.content 
+    end
+    news.content = content.gsub(/<img.*\/>/, "")
+    news.save
+
+    getWords(news.content)
+  end
+
+  def getWords(content)
+    words = content.scan(/[a-zA-Z][a-zA-Z-]+/)
+
+    return if not words 
+
+    words.each do |w|
+      word = Word.new
+      word.word = w.downcase
+      word.save
+    end
   end
 
 end
