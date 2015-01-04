@@ -1,4 +1,5 @@
 class NewsController < ApplicationController
+  before_action :authenticate_user!
   def index
     @all_news = News.paginate(:page => params[:page], :per_page => 25).order("date desc")
   end

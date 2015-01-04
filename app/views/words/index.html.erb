@@ -1,5 +1,5 @@
 <% @words.each do |word| %>
-  <p><%= word.word %></p>
+  <p><%= link_to word.word, word %></p>
 <% end %>
 <div class="center digg_pagination">
   <%= will_paginate @words, :container => false %>
