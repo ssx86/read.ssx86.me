@@ -166,6 +166,8 @@ GEM
     whenever (0.9.4)
       chronic (>= 0.6.3)
     will_paginate (3.0.7)
+    zurb-foundation (4.3.2)
+      sass (>= 3.2.0)
 
 PLATFORMS
   ruby
@@ -187,3 +189,4 @@ DEPENDENCIES
   web-console (~> 2.0)
   whenever (~> 0.8)
   will_paginate (~> 3.0.6)
+  zurb-foundation

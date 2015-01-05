@@ -12,11 +12,7 @@
  *
  *= require_tree .
  *= require_self
+ *= require foundation_and_overrides
  *= require ./pagination.css
  */
 
-body {
-  width: 1024px;
-  margin: 0 auto;
-  background: #333333;
-}
