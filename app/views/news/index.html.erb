@@ -2,19 +2,18 @@
   <div class="h-center font-large">
     <h1>Today's news</h1>
   </div>
-  <ul>
-    <% @all_news.each do |news| %>
-      <li>
-        <div class='news-item'>
-          <%= link_to "[#{news.channel}]#{news.title}", show_news_path(news)  %>
-          <p>Date: <%= news.date %></p>
-          <p><%= news.desc %></p>
-        </div>
-      </li>
-    <% end %>
-  </ul>
 
-  <div class="center digg_pagination">
+  <% @all_news.each do |news| %>
+    <ul class='vcard large-10 panel callout radius'>
+      <li>
+        <h3><%= link_to "#{news.title}", show_news_path(news), class:'fn' %></h3>
+      </li>
+      <li>Date: <%= news.date %></li>
+      <li><%= news.desc %></li>
+    </ul>
+  <% end %>
+
+  <div class="large-12 columns">
     <%= will_paginate @all_news, :container => false %>
   </div>
 </div>
