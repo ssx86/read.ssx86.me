@@ -1,3 +1,6 @@
+<% content_for :title do %>
+  单词列表
+<% end %>
 <% @words.each do |word| %>
   <p><%= link_to word.word, word %></p>
 <% end %>
