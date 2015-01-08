@@ -2,27 +2,19 @@ class NewsController < ApplicationController
   before_action :authenticate_user!
   def index
     @all_news = News.paginate(:page => params[:page], :per_page => 25).order("date desc")
+    @count = News.count
   end
 
   def show
+    puts "正在查看新闻"
     @news = News.find(params[:id])
-    if @news.content.nil? then
-      getContent(@news)
-    end
-  end
+    #
+    # 单词列表
+    @word_list = @news.words.where.not(id: current_user.user_words.where("times > ?", 3).pluck(:word_id))
 
-  private
+    puts "一共有多少个单词#{@word_list.count}"
 
-  def getContent(news)
-    url = news.url
-    doc = Nokogiri::HTML(open(url)) 
-
-    content = ""
-    doc.xpath('//div[@class="cnn_strycntntlft"]/p').each do |item|
-      content = content + '||' + item.content 
-    end
-    news.content = content.gsub(/<img.*\/>/, "")
-    news.save
+    gon.rabl :as => "words"
   end
 
 end

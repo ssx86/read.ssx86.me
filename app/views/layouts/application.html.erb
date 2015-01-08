@@ -16,6 +16,7 @@
 
     <title><%= content_for?(:title) ? yield(:title) : "Untitled" %></title>
 
+
     <%= stylesheet_link_tag    "application" %>
     <%= javascript_include_tag "vendor/custom.modernizr" %>
     <%= csrf_meta_tags %>
@@ -62,7 +63,7 @@
         <li>xx</li>
       </ul>
     </div>
-    <div class='small-8 columns'>
+    <div class='small-10 columns'>
       <%= yield %>
     </div>
 

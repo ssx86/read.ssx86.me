@@ -35,6 +35,7 @@ namespace :fetch do
   end
 
   def getTodayNews( channel, url )
+    puts "fetching channel: [#{channel}]..."
 
     def getdate(url)
       ret = /\d{4}\/\d{2}\/\d{2}/.match(url)
@@ -47,9 +48,9 @@ namespace :fetch do
 
     doc = Nokogiri::HTML(open(url)) 
 
-    f = File.new("/home/zhangss/read.ssx86.me/log/#{channel}", "w")
-    f.puts doc.to_xml
-    f.close
+    #f = File.new("/home/zhangss/read.ssx86.me/log/#{channel}", "w")
+    #f.puts doc.to_xml
+    #f.close
 
     doc.xpath('//item').each do |item| 
       news = News.new
@@ -70,6 +71,7 @@ namespace :fetch do
 
 
   def getContent(news)
+    puts "fetching news content: #{news.title}..."
     url = news.url
     doc = Nokogiri::HTML(open(url)) 
 
@@ -77,22 +79,45 @@ namespace :fetch do
     doc.xpath('//div[@class="cnn_strycntntlft"]/p').each do |item|
       content = content + '||' + item.content 
     end
+
+    doc.xpath('//div[@class="l-container"]/p').each do |item|
+      content = content + '||' + item.content 
+    end
+    doc.xpath('//div[@id="cnnTxtCmpnt"]/p').each do |item|
+      content = content + '||' + item.content 
+    end
+
     news.content = content.gsub(/<img.*\/>/, "")
     news.save
 
-    getWords(news.content)
+    getWords(news, news.content)
   end
 
-  def getWords(content)
+  def getWords(news, content)
     words = content.scan(/[a-zA-Z][a-zA-Z-]+/)
 
     return if not words 
 
+    puts "current news has #{words.count} words"
+
+    new_word_count = 0
+
     words.each do |w|
-      word = Word.new
-      word.word = w.downcase
+      word = Word.find_by word:w.downcase
+      #新单词？
+      if word == nil then
+        puts "new word: #{w.downcase}"
+        word ||= Word.new
+        word.word = w.downcase
+        new_word_count = new_word_count + 1 
+      end
+      word.news.push(news)
+
       word.save
     end
+    
+    puts "new words: #{new_word_count}"
+
   end
 
 end
