@@ -8,6 +8,10 @@ class WordsController < ApplicationController
   end
 
   def show
+    respond_to do |format|
+      format.html # show.html.erb
+      format.json { render json: @word}
+    end
   end
 
   def current_word
